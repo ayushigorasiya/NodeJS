@@ -17,4 +17,4 @@ routes.post('/postotp' , postOtp)//9
 routes.get('/newpassword' , newPasswordPage)//10
 routes.post('/postnewpassword' , postNewPassword)//11
 
-module.exports = routes; 
+module.exports = routes;
