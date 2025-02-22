@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login User</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container Styles */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-top: 5px solid #3498db;
+        }
+
+        /* Header Styles */
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Form Field Styles */
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 22px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        /* Focused Input Field Styling */
+        .input-field:focus {
+            border-color: #3498db;
+            background-color: #fff;
+        }
+
+        /* Submit Button Styling */
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        /* Hover and Active States for Button */
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Link Styling */
+        .register-link {
+            font-size: 16px;
+            color: #3498db;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Container Styles */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Table for Input Fields */
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        td {
+            padding: 5px;
+            font-size: 20px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        td input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        /* Form Actions Container */
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .btn-submit {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login User</h1>
+        <form method="post" action="/loginuser">
+            <div class="form-container">
+                <table>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="email" name="email"  class="input-field" placeholder="Enter your email" required></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" class="input-field" placeholder="Enter your password" required></td>
+                    </tr>
+                </table>
+                <div class="form-actions">
+                    <input type="submit" class="btn-submit" value="Login">
+                </div>
+            </div>
+        </form>
+        <a href="/register" class="register-link">Don't have an account? Register</a>
+    </div>
+</body>
+
+</html>

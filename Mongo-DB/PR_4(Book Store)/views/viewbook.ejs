@@ -1,0 +1,432 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Table (action page)</title>
+    
+</head>
+
+<body>
+
+    <h1>Books List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Book Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Author Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% allrecord.map((val, index)=> { %>
+                <tr>
+                    <td>
+                        <%= index + 1 %>
+                    </td>
+                    <td>
+                        <%= val?.bookname %>
+                    </td>
+                    <td>
+                        <%= val?.bookdiscription %>
+                    </td>
+                    <td>
+                        <%= val?.bookprice %>
+                    </td>
+                    <td>
+                        <%= val?.bookauthor %>
+                    </td>
+                    <td class="actions">
+                        <a href="/deletebook?did=<%= val.id %>" class="delete">Delete</a>
+                        <a href="/editbook?eid=<%= val.id %>" class="edit">Edit</a>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <a href="/" class="add-book">Add Book</a>
+
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Table (Action Page)</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://as2.ftcdn.net/v2/jpg/09/06/33/19/1000_F_906331970_AB9DG5LqjWs4zq4JH36hrnKBOBXJaoRj.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            align-items: center;
+            position: relative;
+            /* Add this to ensure the ::before element is positioned correctly */
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.576);
+            /* Dark overlay with transparency */
+            z-index: -1;
+            /* Ensure the overlay is behind the content */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ded7c4cc;
+            font-size: 40px;
+            border-bottom:3px double #ded7c4;
+            padding-top: 80px;
+        }
+
+        /* Container for Cards */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: rgba(15, 11, 5, 0.719);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            color: #ded7c4cc;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            margin-top: 30px;
+            flex-direction: column;
+        }
+
+        /* Hover effect for the whole card */
+        .card:hover {
+            transform: translateY(-10px);
+            color: #ded7c4cc;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background-color: rgba(15, 11, 5, 0.864)
+        }
+
+        /* Book Name Circular Display with Image */
+        .card-header {
+            position: relative;
+            background-image: url('https://as1.ftcdn.net/jpg/05/48/84/30/1000_F_548843011_z4Y35kQlmr0fRsBYQaO82NV6LxcGL0R9.jpg'); /* Placeholder image */
+            background-size: cover;
+            opacity: 0.7;
+            background-position: center;
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            margin: 25px auto;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-header:hover {
+            transform: scale(1.05); 
+        }
+
+        /* Card Body - Initially Hidden */
+        .card-body {
+            padding: 0 20px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease, padding 0.5s ease;
+            flex-grow: 1; /* Allow the body to take remaining space */
+        }
+
+        /* Show the body when clicked */
+        .card-body.show {
+            display: block;
+            opacity: 1;
+            padding: 15px 20px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #9d7636; /* Light Red for price */
+        }
+
+        /* Action Buttons at the Bottom */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;  
+            background-color: #6242397b;
+            color: #efe7dbde;
+            transition: background-color 0.3s ease;
+            border-radius:10px;
+        }
+
+        .actions a {
+            padding: 10px 18px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .actions .delete {
+            background-color: #926a5fc9;
+            color: #efe7dbde;
+        }
+
+        .actions .edit {
+            background-color: #926a5fc9;
+            color: #efe7dbde;
+        }
+
+        .actions a:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* Add Book Button */
+        .add-book {
+            display: inline-block;
+            padding: 15px 30px; 
+            background-color: #926a5fc9;
+            color: #efe7dbde;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            width: 240px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .add-book:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Books List</h1>
+
+    <div class="container">
+        <% allrecord.map((val, index) => { %>
+            <div class="card" id="card-<%= index %>">
+                <!-- Book Name with Image (Circular) -->
+                <div class="card-header" onclick="toggleDetails(<%=index %>)">
+                    <%= val?.bookname %>
+                </div>
+
+                <!-- Book Details (Initially hidden) -->
+                <div class="card-body" id="body-<%= index %>">
+                    <p><strong>Description:</strong> <%= val?.bookdiscription %></p>
+                    <p><strong>Author:</strong> <%= val?.bookauthor %></p>
+                    <p class="price">Price: $<%= val?.bookprice %></p>
+                </div>
+
+                <!-- Action Buttons at the Bottom -->
+                <div class="actions">
+                    <a href="/deletebook?did=<%= val.id %>" class="delete">Delete</a>
+                    <a href="/editbook?eid=<%= val.id %>" class="edit">Edit</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <a href="/" class="add-book">Add Book</a>
+
+    <script>
+        // JavaScript function to toggle the visibility of book details
+        function toggleDetails(index) {
+            // Hide all card details
+            const allCards = document.querySelectorAll('.card-body');
+            allCards.forEach((cardBody) => {
+                cardBody.classList.remove('show');
+            });
+
+            // Show the clicked card's details
+            const clickedCardBody = document.getElementById('body-' + index);
+            clickedCardBody.classList.toggle('show');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Table (Action Page)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            width: 280px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 15px;
+            color: #333;
+        }
+
+        .card-body p {
+            margin: 8px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .actions a {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .actions .delete {
+            background-color: #e74c3c;
+        }
+
+        .actions .edit {
+            background-color: #f39c12;
+        }
+
+        .actions a:hover {
+            opacity: 0.8;
+        }
+
+        .add-book {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            width: 220px;
+            text-align: center;
+        }
+
+        .add-book:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Books List</h1>
+
+    <div class="container">
+        <% allrecord.map((val, index) => { %>
+            <div class="card">
+                <div class="card-header">
+                    <%= val?.bookname %>
+                </div>
+                <div class="card-body">
+                    <p><strong>Description:</strong> <%= val?.bookdiscription %></p>
+                    <p><strong>Author:</strong> <%= val?.bookauthor %></p>
+                    <p class="price">Price: $<%= val?.bookprice %></p>
+                </div>
+                <div class="actions">
+                    <a href="/deletebook?did=<%= val.id %>" class="delete">Delete</a>
+                    <a href="/editbook?eid=<%= val.id %>" class="edit">Edit</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <a href="/" class="add-book">Add Book</a>
+
+</body>
+
+</html> -->

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5c6bc0;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        fieldset {
+            border: 2px solid #5c6bc0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        legend {
+            font-size: 20px;
+            font-weight: bold;
+            color: #5c6bc0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        input[type="file"],
+        button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #5c6bc0;
+            outline: none;
+            background-color: #f1faff;
+        }
+
+        button {
+            background-color: #5c6bc0;
+            color: white;
+            cursor: pointer;
+            border: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #4a5d9b;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #3e4a80;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #5c6bc0;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 25px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Add User</h1>
+        <form action="/adduser" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>User Information</legend>
+                <table>
+                    <tr>
+                        <td><label for="name">Name:</label></td>
+                        <td><input type="text" name="name" id="name" required placeholder="Enter your name"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input type="email" name="email" id="email" required placeholder="Enter your email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input type="password" name="password" id="password" required placeholder="Enter your password"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Gender:</label></td>
+                        <td>
+                            <div class="radio-group">
+                                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                                <label><input type="radio" name="gender" value="Female" required> Female</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Hobby:</label></td>
+                        <td>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="hobby" value="Cricket"> Cricket</label>
+                                <label><input type="checkbox" name="hobby" value="Music"> Music</label>
+                                <label><input type="checkbox" name="hobby" value="Travelling"> Travelling</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="city">City:</label></td>
+                        <td>
+                            <select name="city" id="city" required>
+                                <option value="">Select a city</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Vadodara">Vadodara</option>
+                                <option value="Rajkot">Rajkot</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="image">File:</label></td>
+                        <td><input type="file" name="image" id="image"></td>
+                    </tr>
+                </table>
+                <button type="submit">Add User</button>
+            </fieldset>
+        </form>
+
+        <div class="form-footer">
+            <a href="/viewuser">View Users</a>
+        </div>
+    </div>
+
+</body>
+</html>

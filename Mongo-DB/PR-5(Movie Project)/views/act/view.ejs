@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Netflix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
+        integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
+        crossorigin="anonymous"></script>
+
+    <!--Css Start-->
+ 
+    <style>
+
+        /* CSS VARIABLES */
+        :root {
+            --primary: #141414;
+            --light: #F3F3F3;
+            --dark: #686868;
+        }
+
+        html,
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--primary);
+            color: var(--light);
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            overflow-y: auto;   
+            line-height: 1.4;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h1 {
+            padding-top: 60px;
+        }
+
+        .wrapper {
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            list-style: none;
+        }
+        /* HEADER */
+        header {
+            padding: 20px 20px 9.5px 20px;
+            position: fixed;
+            top: 0;
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 1fr 4fr 1fr;
+            grid-template-areas:
+                "nt mn mn sb . . . ";
+            background-color: var(--primary);
+            width: 100%;
+            z-index: 1;
+            margin-bottom: 0px;
+        }
+
+        .netflixLogo {
+            grid-area: nt;
+            object-fit: cover;
+            width: 100px;
+            max-height: 100%;
+
+            padding-left: 30px;
+            padding-top: 0px;
+        }
+
+        .netflixLogo img {
+            height: 35px;
+        }
+
+        #logo {
+            color: #E50914;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .main-nav {
+            grid-area: mn;
+            padding: 0 30px 0 20px;
+            justify-content: center;
+            display: flex;
+        }
+
+        .main-nav a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .main-nav a:hover {
+            color: var(--dark);
+        }
+
+        .sub-nav {
+            grid-area: sb;
+            padding: 0 40px 0 40px;
+        }
+
+        .sub-nav a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .sub-nav a:hover {
+            color: var(--dark);
+        }
+
+
+        /* MAIN CONTIANER */
+        .main-container {
+            padding: 50px;
+            padding-top: 0 !important;
+        }
+
+        .box {
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: repeat(6, minmax(100px, 1fr));
+        }
+
+        .box a {
+            transition: transform .3s;
+        }
+
+        .box a:hover {
+            transition: transform .3s;
+            -ms-transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .box img {
+            border-radius: 2px;
+        }
+
+        /* LINKS */
+        .link {
+            padding: 50px;
+        }
+
+        .sub-links ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .sub-links a {
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .sub-links a:hover {
+            color: var(--dark);
+            text-decoration: underline;
+        }
+
+        .logos a {
+            padding: 10px;
+        }
+
+        .logo {
+            color: var(--dark);
+        }
+
+
+        /* FOOTER */
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--dark);
+            margin: 10px;
+        }
+
+        /* MEDIA QUERIES */
+
+        @media(max-width: 900px) {
+
+            header {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-areas:
+                    "nt nt nt  .  .  . sb . . . "
+                    "mn mn mn mn mn mn  mn mn mn mn";
+            }
+
+            .box {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(4, minmax(100px, 1fr));
+            }
+
+        }
+
+        @media(max-width: 700px) {
+
+            header {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-areas:
+                    "nt nt nt  .  .  . sb . . . "
+                    "mn mn mn mn mn mn  mn mn mn mn";
+            }
+
+            .box {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(3, minmax(100px, 1fr));
+            }
+
+            .sub-links ul {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media(max-width: 500px) {
+
+            .wrapper {
+                font-size: 15px;
+            }
+
+            header {
+                margin: 0;
+                padding: 20px 0 0 0;
+                position: static;
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-areas:
+                    "nt"
+                    "mn"
+                    "sb";
+                text-align: center;
+            }
+
+            .netflixLogo {
+                max-width: 100%;
+                margin: auto;
+                padding-right: 20px;
+            }
+
+            .main-nav {
+                display: grid;
+                grid-gap: 0px;
+                grid-template-columns: repeat(1, 1fr);
+                text-align: center;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 18px;
+            }
+
+
+
+            .box {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(1, 1fr);
+                text-align: center;
+            }
+
+            .box a:hover {
+                transition: transform .3s;
+                -ms-transform: scale(1);
+                -webkit-transform: scale(1);
+                transform: scale(1.2);
+            }
+
+            .logos {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                text-align: center;
+            }
+
+            .sub-links ul {
+                display: grid;
+                grid-gap: 20px;
+                grid-template-columns: repeat(1, 1fr);
+                text-align: center;
+                font-size: 15px;
+            }
+
+
+
+            .b-slider image {
+            font-family: 'Roboto', sans-serif;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Add this to ensure the ::before element is positioned correctly */
+        }
+
+        .b-slider image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.576);
+            /* Dark overlay with transparency */
+            z-index: -1;
+            /* Ensure the overlay is behind the content */
+        }
+
+
+        }
+
+        .card-img-top img{
+            
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        body {
+    background-color: #141414; /* Dark background */
+    color: #fff; /* White text for contrast */
+}
+
+/* Slider Section */
+.b-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(70%);
+}
+
+/* View Section */
+.view {
+    padding: 80px 0;
+    background-image: 'https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-film-festival-black-atmospheric-background-image_784970.jpg';
+    background-color: #141414; /* Dark background */
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Row Layout */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #2d2d2d; /* Dark card background */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 300px; /* Slightly increased card width */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Prevent Image from being cut off */
+.card-img-top {
+    width: 100%;
+    height: 250px; /* Fixed height */
+    object-fit: contain; /* Prevent image from being cropped */
+    border-bottom: 4px solid #3498db; /* Blue border for a fresh look */
+}
+
+.card-body {
+    padding: 25px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff; /* White title text */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #bdbdbd; /* Light grey text for descriptions */
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.card-text.fw-bold {
+    color: #fff; /* White for price text */
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+/* Action Links */
+.action-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.delete-link, .edit-link {
+    padding: 8px 15px;
+    border-radius: 25px; 
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.delete-link {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.delete-link:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.edit-link {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.edit-link:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Buttons at the bottom */
+.d-flex {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-dark {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background-color: #444444;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+}
+
+/* Hover effects for buttons */
+.btn:active {
+    transform: scale(0.98);
+}
+
+span{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: var(--light);
+    font-weight: 500;
+    font-size: 45px;
+    margin-bottom: 40px;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+a{
+    border-bottom: none;
+}
+
+  
+    </style>
+       <!--Css End-->
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- HEADER -->
+        <header>
+            <div class="netflixLogo">
+                <a id="logo" href="#home"><img
+                        src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/logo.PNG?raw=true"
+                        alt="Logo Image"></a>
+            </div>
+            <nav class="main-nav">
+                <a href="/">Home</a>&nbsp;&nbsp;&nbsp;
+                <a href="#">TV Shows</a>&nbsp;&nbsp;&nbsp;
+                <a href="#movies">Movies</a>&nbsp;&nbsp;&nbsp;
+                
+                <a href="/act/add" class="sign-in">Book Now</a>&nbsp;&nbsp;&nbsp;
+                <a href="/act" class="sign-in">Show Movie</a>&nbsp;&nbsp;&nbsp;
+                
+            </nav>
+            <nav class="sub-nav">
+                <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
+                <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
+                <a href="#">Account</a>
+            </nav>
+        </header>
+        <!-- END OF HEADER -->
+
+
+        <section>
+            <div class="b-slider">
+               <img src="https://www.criticfilm.com/wp-content/uploads/2023/12/bollywood-vs-hollywood.jpg" width="100%" alt="">
+            </div>
+    
+            <div class="view">
+                <span>Favourite Movies</span>
+                <div class="container">
+                    <div class="row">
+                        <% all.map((val)=> { %>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="<%= val?.image %>" width="30%" class="card-img-top" alt="Cover Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= val?.name %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= val?.description %>
+                                        </p>
+                                        <p class="card-text fw-bold">Price: $<%= val?.price %>
+                                        </p>
+                                        <div class="action-links">
+                                            <a href="/act/deletedata?delId=<%= val?.id %>" class="delete-link">Delete</a>
+                                            <a href="/act/editdata?editId=<%= val?.id %>" class="edit-link">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+            
+                </div>
+                <div class="d-flex">
+                    <div class="container">
+                        <a href="/act/add" class="btn btn-dark">Add New Movie</a>
+                    <a href="/" class="btn btn-secondary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+           </section>
+        <!-- MAIN CONTAINER -->
+        <section class="main-container">
+            <div class="location" id="home">
+                <h1 id="home">Popular on Netflix</h1>
+                <div class="box">
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p4.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p5.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p6.PNG?raw=true"
+                            alt=""></a>
+
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p7.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p8.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p9.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p10.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p11.PNG?raw=true"
+                            alt=""></a>
+                    <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p12.PNG?raw=true"
+                            alt=""></a>
+                </div>
+            </div>
+
+
+            <h1 id="myList">Trending Now</h1>
+            <div class="box">
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t1.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t2.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t3.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t4.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t5.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/t6.PNG?raw=true"
+                        alt=""></a>
+            </div>
+
+            <h1 id="tvShows">TV Shows</h1>
+            <div class="box">
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv1.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv4.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv5.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv6.PNG?raw=true"
+                        alt=""></a>
+
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv7.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv8.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv9.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv10.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv11.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv12.PNG?raw=true"
+                        alt=""></a>
+            </div>
+
+
+            <h1 id="movies">Blockbuster Action & Adventure</h1>
+            <div class="box">
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m2.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m3.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m4.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m5.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m6.PNG?raw=true"
+                        alt=""></a>
+            </div>
+
+            <h1 id="originals">Netflix Originals</h1>
+            <div class="box">
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o1.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o2.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o3.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o4.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o5.PNG?raw=true"
+                        alt=""></a>
+                <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o6.PNG?raw=true"
+                        alt=""></a>
+            </div>
+
+
+
+   
+
+            <!-- END OF MAIN CONTAINER -->
+
+            <!-- LINKS -->
+            <section class="link">
+                <div class="logos">
+                    <a href="#"><i class="fab fa-facebook-square fa-2x logo"></i></a>
+                    <a href="#"><i class="fab fa-instagram fa-2x logo"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-2x logo"></i></a>
+                    <a href="#"><i class="fab fa-youtube fa-2x logo"></i></a>
+                </div>
+                <div class="sub-links">
+                    <ul>
+                        <li><a href="#">Audio and Subtitles</a></li>
+                        <li><a href="#">Audio Description</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Media Center</a></li>
+                        <li><a href="#">Investor Relations</a></li>
+                        <li><a href="#">Jobs</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Legal Notices</a></li>
+                        <li><a href="#">Corporate Information</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </section>
+            <!-- END OF LINKS -->
+
+            <!-- FOOTER -->
+            <footer>
+                <p>&copy 1997-2018 Netflix, Inc.</p>
+                <p>Carlos Avila &copy 2018</p>
+            </footer>
+    </div>
+</body>
+
+</html>

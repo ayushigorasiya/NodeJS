@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store(Edit Page)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        
+
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://as2.ftcdn.net/v2/jpg/09/06/33/19/1000_F_906331970_AB9DG5LqjWs4zq4JH36hrnKBOBXJaoRj.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Add this to ensure the ::before element is positioned correctly */
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.576);
+            /* Dark overlay with transparency */
+            z-index: -1;
+            /* Ensure the overlay is behind the content */
+        }
+
+
+
+
+        .books {
+            background: rgba(15, 11, 5, 0.719);
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .books h1 {
+            text-align: center;
+            color: #ded7c4cc;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c5b9b9d4;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 96.4%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            color: #34261b;
+            font-weight: 600;
+            background-color: #ded7c4cc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #34261b;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .form-group button {
+            background-color: #624239ab;
+            color: #efe7dbde;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid #efe7dbde;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #4a3129d8;
+        }
+
+        .form-group a {
+            text-align: center;
+            display: block;
+            color: #efe7dbde;
+            margin-top: 10px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="books">
+        <h1>EDIT BOOKS</h1>
+        
+        <form action="/updatebook" method="post">
+            <input type="hidden" name="editid" value="<%= single.id %>" require>
+            <div class="form-group">
+                <label for="bookname">Book Name :-</label>
+                <input type="text" id="bookname" name="name" value="<%=single.bookname%>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description :-</label>
+                <textarea id="description" name="description" value="<%=single.bookdescription%>" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:-</label>
+                <input type="number" id="price" name="price" step="0.01" value="<%=single.bookprice%>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author Name :-</label>
+                <input type="text" id="author" name="author" value="<%=single.bookauthor%>" required>
+            </div>
+
+            <div class="form-group">
+               <button type="submit">Edit</button>
+            </div>
+
+            <div class="form-group">
+                <a href="/viewbook">View Books</a>
+             </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
