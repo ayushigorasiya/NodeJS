@@ -9,7 +9,7 @@
             </div>
                 <% } %>
         <div class="bg-secondary rounded h-100 p-4">
-            <h4 align="center" style="font-weight: 500; letter-spacing: 0.19rem; " class="mb-4 "> Category  Table</h4>
+            <h4 align="center" style="font-weight: 500; letter-spacing: 0.19rem; " class="mb-4 "> Sub_Category  Table</h4>
             <table class="table">       
                 <thead>
                     <tr>
@@ -34,18 +34,18 @@
                                 <%= val?.subcategory %>
                             </td>
                             <td>
-                                <a href="/category/deletecategory?id=<%= val?.id%>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <a href="/subcategory/deletesubcategory?id=<%= val?.id%>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                 <a href="/subcategory/editsubcategory?id=<%= val?.id%>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                             </td>
                             <td>
-                                <% if(val?.status=="active" ) { %>
-                                    <a href="/category/changestatus?id=<%= val?.id %>&status=deactive" class="btn btn-success btn-sm">
+                                <% if(val?.status === "active" ) { %>
+                                    <a href="/subcategory/changestatus?id=<%= val?.id %>&status=deactive" class="btn btn-success btn-sm">
                                         <%= val?.status %>
                                     </a>
                                 <% } else { %>
-                                    <a  href="/category/changestatus?id=<%= val?.id %>&status=active" class="btn btn-warning btn-sm">
+                                    <a  href="/subcategory/changestatus?id=<%= val?.id %>&status=active" class="btn btn-warning btn-sm">
                                         <%= val?.status %>
-                                    </a>
+                                    </a>    
                                     <% } %>
                             </td>
                         </tr>
