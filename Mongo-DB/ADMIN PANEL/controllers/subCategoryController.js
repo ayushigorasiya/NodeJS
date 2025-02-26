@@ -1,4 +1,3 @@
-
 const CategoryModel = require('../models/CategoryModel');
 const SubcategoryModel = require('../models/SubcategoryModel');
 
@@ -10,29 +9,29 @@ const AddSubcategoryPage = async(req , res) => {
         return res.render('subcategory/add_subcategory', {
             category: categories
         })
-
+        
     } catch (err) {
         console.log(err);
         return false;
-
+                    
     }
 }
 const ViewSubcategoryPage = async(req, res) => {
-   try{
-        const subcategory = await SubcategoryModel.find({ status: 'active'}).populate('categoryId');
-
+    try{
+        const subcategory = await SubcategoryModel.find({}).populate('categoryId');
+        
         console.log(subcategory);
         
-
+        
         return res.render('subcategory/view_subcategory', {
             subcategory : subcategory
         })
-   }
-   catch(err){
-    console.log(err);
-    return false;
-    
-   }
+    }
+    catch(err){
+        console.log(err);
+        return false;
+        
+    }
 }
 
 
@@ -56,18 +55,16 @@ const changeStatus = async(req , res) => {
         const {id , status} = req.query;
         if(status == 'deactive'){
             await SubcategoryModel.findByIdAndUpdate(id , {
-                status : status
+                status : 'active'
             })
-            req.flash('success' ,' Category Update Successfully....!')
-            return res.redirect('/subcategory');
         }
         else{
             await SubcategoryModel.findByIdAndUpdate(id , {
-                status : status
-                })
-                req.flash('success' ,' Category Update Successfully....!')
-                return res.redirect('/subcategory');
+                status : 'deactive'
+            })
         }
+        req.flash('success' ,' Category Update Successfully....!')
+        return res.redirect('/subcategory');
     }
     catch(err){
         console.log(err);
@@ -86,7 +83,7 @@ const EditSubcategory = async(req , res) => {
             single: single,
             category: category
         })
-   
+        
         
     }
     catch(err){
@@ -114,7 +111,7 @@ const updatesubCategory = async (req , res) => {
         await SubcategoryModel.findByIdAndUpdate(editid , {
             categoryId : category,
             subcategory:subcategory
-
+            
         })
         req.flash('success' ,' Category Updated Successfully....!')
         return res.redirect('/subcategory');

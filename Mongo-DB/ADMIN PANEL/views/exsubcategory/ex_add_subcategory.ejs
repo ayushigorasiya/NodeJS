@@ -1,0 +1,84 @@
+<%- include('../header') %>
+    <!-- Content Start -->
+    <!-- Form Start -->
+    <div class="container-fluid pt-4 px-4 MT-5">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6  mx-auto mt-5">
+                <% if(locals.message?.success) {%>
+                    <div class="alert alert-success" role="alert">
+                        <%= locals.message?.success %>
+                    </div>
+                    <% } %>
+                        <div class="bg-secondary rounded h-100 p-4 ">
+                            <h4 align="center" style="font-weight: 500; letter-spacing: 0.19rem; " class="mb-4 ">Add
+                                Sub_Category</h4>
+                            <form method="post" action="/exsubcategory/insertexsubcategory">
+                                <div class="mb-3">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                        Category</label>
+                                    <div class="col-md-12">
+
+                                        <select name="category" onchange="categoryChange()" id="category" class="form-control">
+                                            <option>---select category---</option>
+                                            <% category.map((val)=>{ %>
+                                                <option value="<%= val?.id %>">
+                                                    <%= val?.category %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Sub_Category Name</label>
+                                    <div class="col-sm-12">
+                                        <select name="subcategory" id="subcategory" class="form-control">
+                                            <option>---select subcategory---</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fname"class="col-sm-3 text-right control-label col-form-label">Exsubcategory</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" name="exsubcategory" class="form-control"
+                                            name="exsubcategory" placeholder="Enter Ex_Subcategory Name">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Form End -->
+
+    <!--Ajax start-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        const categoryChange = () => {
+            let categoryid = document.getElementById('category').value;
+            $.ajax({
+                method: 'GET',
+                url: `/exsubcategory/ajaxcategorywiserecord?categoryid=${categoryid}`,
+                success: function (res) {
+                    if (res.success) {
+                        let tbl = "";
+                        tbl += `<option value="">---select subcategory---</option>`
+                        let category = res.category;
+                        category.map((val) => {
+                            tbl += `
+                                        <option value=${val?._id}>${val?.subcategory}</option>
+                                    `
+                        })
+                        document.getElementById('subcategory').innerHTML = tbl;
+                    }
+                }
+            })
+        }
+    </script>
+    <!--Ajax end-->
+    <%- include('../footer') %>
+
+    
