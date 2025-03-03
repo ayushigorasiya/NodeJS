@@ -3,7 +3,7 @@ const express = require('express');
 const routes = express.Router();
 
 
-const {addExsubcategoryPage,insertExsubcategory,ajaxCategorywiseRecord,viewExsubcategorypage,deleteExsubcategory,changeStatus,EditExsubcategory } = require('../controllers/ExsubcategoryController');
+const {addExsubcategoryPage,insertExsubcategory,ajaxCategorywiseRecord,viewExsubcategorypage,updateExsubcategory,deleteExsubcategory,changeStatus,EditExsubcategory } = require('../controllers/ExsubcategoryController');
 routes.get('/', viewExsubcategorypage)
 routes.get('/addexsubcategorypage',addExsubcategoryPage);
 routes.post('/insertexsubcategory',insertExsubcategory);

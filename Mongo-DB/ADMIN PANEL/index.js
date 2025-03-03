@@ -3,8 +3,11 @@ const express = require('express');
 const port = 9900;
 const app = express();
 app.set('view engine' , 'ejs');
+
+const path =require('path');
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 const db = require('./config/db');
-const path = require('path');
+
 const cookieparser = require('cookie-parser');
 
 app.use(cookieparser());
@@ -29,6 +32,19 @@ app.use(passport.initialize());  //5
 app.use(passport.session());  //6
 app.use(passport.setUser);
 //Passport login end
+//multer start
+
+// const multer = require('multer');
+// const st = multer.diskStorage({
+//     destination : (req, res, cb) => {
+//         cb(null,'uploads');
+//     },
+//     filename : (req, file, cb) => {
+//         cb(null,`${file.fieldname}-${Math.floor(Math.random() * 1000000)}`);
+//     }
+// })
+// const fileUpload = multer({storage : st}).single('file');
+//multer end
 
 //flash message start
 const flash = require ('connect-flash');
