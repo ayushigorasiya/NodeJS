@@ -1,5 +1,7 @@
 const CategoryModel = require('../models/CategoryModel');
-
+const ProductModel = require('../models/ProductModel');
+const ExSubcategoryModel = require('../models/ExsubcategoryModel');
+const SubcategoryModel = require('../models/SubcategoryModel');
 const addCategoryPage = (req , res) => {
     return res.render('category/add_category');
 }
@@ -37,10 +39,15 @@ const insertCategory = async(req , res) => {
 const changeStatus = async(req , res) => {
     try{
         const {id , status} = req.query;
+
+
         if(status == 'deactive'){
             await CategoryModel.findByIdAndUpdate(id , {
                 status : status
             })
+            await SubcategoryModel.updateMany({categoryId: id} , {$set: {status : status}});
+            await ExSubcategoryModel.updateMany({categoryId: id} , {$set: {status : status}})
+            await ProductModel.updateMany({categoryId: id} , {$set: {status : status}})
             req.flash('success' ,' Category Update Successfully....!')
             return res.redirect('/category');
         }
@@ -48,6 +55,9 @@ const changeStatus = async(req , res) => {
             await CategoryModel.findByIdAndUpdate(id , {
                 status : status
                 })
+                await SubcategoryModel.updateMany({categoryId: id} , {$set: {status : status}});
+                await ExSubcategoryModel.updateMany({categoryId: id} , {$set: {status : status}})
+                await ProductModel.updateMany({categoryId: id} , {$set: {status : status}})
                 req.flash('success' ,' Category Update Successfully....!')
                 return res.redirect('/category');
         }
@@ -63,6 +73,9 @@ const deleteCategory = async(req , res) => {
     try{
         let id = req.query?.id;
         await CategoryModel.findByIdAndDelete(id);
+        await SubcategoryModel.deleteMany({ categoryId: id });
+        await ExSubcategoryModel.deleteMany({ categoryId: id });
+        await ProductModel.deleteMany({ categoryId: id });
         req.flash('success' ,' Category Delete Successfully....!')
         return res.redirect('/category');
     }

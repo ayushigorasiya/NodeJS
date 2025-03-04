@@ -53,7 +53,18 @@ const changeStatus = async(req , res) => {
 
 const insertExsubcategory = async(req,res) => {
     try {
-        const { category, subcategory, exsubcategory } = req.body;
+        const { editid,category, subcategory, exsubcategory } = req.body;
+        if(editid){
+
+            await ExSubcategoryModel.findByIdAndUpdate(editid, {
+                categoryId: category,
+            subcategoryId: subcategory,
+            exsubcategory: exsubcategory
+            })
+            req.flash('success', 'Exsubcategory successfully update');
+            return res.redirect('/exsubcategory')
+        }
+        else{
         await ExSubcategoryModel.create({
             categoryId: category,
             subcategoryId: subcategory,
@@ -61,6 +72,7 @@ const insertExsubcategory = async(req,res) => {
         })
         req.flash('success', 'Exsubcategory create successfully');
         return res.redirect('/exsubcategory/addexsubcategorypage')
+    }
     } catch (err) {
         console.log(err);
         return false;

@@ -1,45 +1,67 @@
 <%- include('../header') %>
     </nav>
-    <div class="d-flex mt-5 ms-5 mb-5">
-        <div class="col-sm-12 col-xl-10 m-auto mt-5">
-            <% if(locals.message?.success) { %>
-                <div class="alert alert-success w-50">
-                    <%= locals.message?.success %>
-                </div>
-            <% } %>
-            <div class="bg-secondary rounded p-5">
-                <h4 align="center" style="font-weight: 500; letter-spacing: 0.19rem;" class="mb-4">
-                    Ex_Subcategory Cards</h4>
-                
-                <div class="row">
-                    <% product.map((val, index) => { %>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/<%= val.image %>" class="card-img-top" alt="<%= val?.product %>" width="100">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= val?.product %></h5>
-                                    <p class="card-text">
-                                        <strong>Category:</strong> <%= val?.categoryId?.category %><br>
-                                        <strong>Sub_Category:</strong> <%= val?.subcategoryId?.subcategory %><br>
-                                        <strong>Ex_Subcategory:</strong> <%= val?.exsubcategoryId?.exsubcategory %><br>
-                                        <strong>Price:</strong> $<%= val?.price %><br>
-                                        <strong>Quantity:</strong> <%= val?.qty %>
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <a href="/exsubcategory/deleteexsubcategory?id=<%= val?.id %>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
-                                        <a href="/exsubcategory/editexsubcategory?id=<%= val?.id %>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="/exsubcategory/changestatus?id=<%= val?.id %>&status=<%= val?.status === 'active' ? 'active' : 'deactive' %>" class="btn <%= val?.status === 'active' ? 'btn-success' : 'btn-warning' %> btn-sm">
+  
+    <div class="container mt-5">
+        <% if (locals.message?.success) { %>
+            <div class="alert alert-success w-75 mx-auto">
+                <%= locals.message?.success %>
+            </div>
+        <% } %>
+    
+        <div class=" rounded  shadow-sm">
+            <h4 class="text-center mb-5" style="font-weight: 600; letter-spacing: 0.2rem;">
+                Products Cards
+            </h4>
+    
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <% product.map((val, index) => { %>
+                    <div class="col">
+                        <div class="card shadow-sm p-3 bg-secondary text-light border-0 rounded-lg h-100">
+                            <img src="/<%= val.image %>" class="card-img-top" alt="<%= val?.product %>" style="object-fit: cover; height: 250px;">
+                            <div class="card-body">
+                               
+                                <div class="card-info mb-3" style="color: #fcfafac7;">
+                                    <!-- Ex_Subcategory on top -->
+                                   
+                                    <!-- Other details below Ex_Subcategory -->
+                                    <p><strong  style="color: #fcfafa75;">Category:</strong> <%= val?.categoryId?.category %></p>
+                                    <p><strong  style="color: #fcfafa75;">Sub_Category:</strong> <%= val?.subcategoryId?.subcategory %></p>
+                                    <p><strong style="color: #fcfafa75;">Ex_Subcategory:</strong> <%= val?.exsubcategoryId?.exsubcategory %></p>
+                                    
+                                    <p><strong  style="color: #fcfafa75;">Product:</strong> <%= val?.product %></p>
+                                    <p><strong  style="color: #fcfafa75;">Price:</strong> ₹<%= val?.price %></p>
+                                    <p><strong  style="color: #fcfafa75;">Quantity:</strong> <%= val?.qty %></p>
+                                </div>
+    
+                                <div class="d-flex justify-content-between p-0 mt-3">
+                                    <a  href="/product/deleteproduct?id=<%= val?.id%>"
+                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
+                                    <a href="/product/editproduct?id=<%= val?.id%>"
+                                        class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                   
+                                
+                                    </a>
+                                    <td>  <% if(val?.status==="active" ) { %>
+                                        <a href="/product/changestatus?id=<%= val?.id %>&status=active"
+                                            class="btn btn-success btn-sm">
                                             <%= val?.status %>
                                         </a>
-                                    </div>
+                                        <% } else { %>
+                                            <a href="/product/changestatus?id=<%= val?.id %>&status=deactive"
+                                                class="btn btn-warning btn-sm">
+                                                <%= val?.status %>
+                                            </a>
+                                            <% } %></td>
                                 </div>
+                                
                             </div>
                         </div>
-                    <% }) %>
-                </div>
+                    </div>
+                <% }) %>
             </div>
         </div>
     </div>
+    
     
     <!-- <div class="d-flex mt-5 ms-5 mb-5">
         <div class="col-sm-12 col-xl-10  m-auto mt-5 ">
@@ -95,23 +117,10 @@
                                             <img src="/<%= val.image %>" width="100" alt="">
                                         </td>
                                         <td>
-                                            <a href="/exsubcategory/deleteexsubcategory?id=<%= val?.id%>"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            <a href="/exsubcategory/editexsubcategory?id=<%= val?.id%>"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                           
                                         </td>
                                         <td>
-                                            <% if(val?.status==="active" ) { %>
-                                                <a href="/exsubcategory/changestatus?id=<%= val?.id %>&status=active"
-                                                    class="btn btn-success btn-sm">
-                                                    <%= val?.status %>
-                                                </a>
-                                                <% } else { %>
-                                                    <a href="/exsubcategory/changestatus?id=<%= val?.id %>&status=deactive"
-                                                        class="btn btn-warning btn-sm">
-                                                        <%= val?.status %>
-                                                    </a>
-                                                    <% } %>
+                                          
                                         </td>
                                     </tr>
                                     <% }) %>
