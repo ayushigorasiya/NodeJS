@@ -8,10 +8,14 @@ const ProductModel = require('../models/ProductModel');
 const AddProductPage = async (req , res) => {
     try {
         let category = await CategoryModel.find({ status :'active'});
+        console.log(category);
         return res.render('product/add_product', {
             category : category
         })
+        
+        
     }
+    
     catch(err){
         console.log(err);
         return false
