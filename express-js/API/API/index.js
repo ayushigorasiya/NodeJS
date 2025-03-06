@@ -7,6 +7,8 @@ const cors =require('cors');
 app.use(cors());
 
 app.get('/viewblog' ,(req , res) => {
+   
+    
     return res.status(200).send({
         success:true,
         message: "Shiv Sada Sahayate....!",

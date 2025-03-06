@@ -73,9 +73,6 @@ const deleteCategory = async(req , res) => {
     try{
         let id = req.query?.id;
         await CategoryModel.findByIdAndDelete(id);
-        await SubcategoryModel.deleteMany({ categoryId: id });
-        await ExSubcategoryModel.deleteMany({ categoryId: id });
-        await ProductModel.deleteMany({ categoryId: id });
         req.flash('success' ,' Category Delete Successfully....!')
         return res.redirect('/category');
     }
