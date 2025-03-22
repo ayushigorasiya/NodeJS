@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --text-color: #0f172a;
+        --bg-color: #ffffff;
+        --nav-bg: rgba(255, 255, 255, 0.8);
+        --nav-border: rgba(231, 231, 231, 0.8);
+        --nav-height: 70px;
+        --nav-shadow: 0 5px 20px -5px rgba(99, 102, 241, 0.1);
+        --button-bg: rgba(99, 102, 241, 0.1);
+        --button-hover: rgba(99, 102, 241, 0.15);
+    }
+
+
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .premium-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: var(--nav-bg);
+        border-bottom: 1px solid var(--nav-border);
+        height: var(--nav-height);
+        box-shadow: var(--nav-shadow);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 2rem;
+        gap: 2rem;
+    }
+
+    .nav-logo {
+        position: relative;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        overflow: visible;
+        transition: all 0.3s ease;
+    }
+
+    .logo-text {
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #d946ef 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradientFlow 8s ease infinite;
+    }
+
+    .nav-logo:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-logo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg,
+                var(--primary-color) 0%,
+                #d946ef 50%,
+                var(--primary-color) 100%);
+        border-radius: 12px;
+        z-index: -2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-logo::after {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        background: var(--nav-bg);
+        border-radius: 11px;
+        z-index: -1;
+    }
+
+    .nav-logo:hover::before {
+        opacity: 0.15;
+    }
+
+    .logo-shine {
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        right: -100%;
+        bottom: -100%;
+        background: linear-gradient(45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                transparent 100%);
+        transform: translateX(-100%) rotate(45deg);
+        animation: none;
+        pointer-events: none;
+    }
+
+    .nav-logo:hover .logo-shine {
+        animation: shineLogo 1s ease forwards;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        background: var(--button-bg);
+        color: var(--primary-color);
+    }
+
+    .nav-link.active {
+        background: var(--button-bg);
+        color: var(--primary-color);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+    }
+
+    body {
+        background-color: #121212;
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        /* Full height */
+        display: flex;
+        justify-content: center;
+        /* Horizontally center */
+        align-items: center;
+        /* Vertically center */
+    }
+
+    .container {
+        max-width: 900px;
+        /* Optional, for maximum width */
+        width: 100%;
+    }
+
+    .bg-dark-card {
+        background-color: #2a2a2a;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    h4 {
+        font-weight: 700;
+        color: #e0e0e0;
+        font-size: 27px;
+        letter-spacing: 0.05rem;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        background-color: #333;
+        border: 1px solid #444;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 15px;
+        width: 90%;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        background-color: #444;
+        border-color: #00bcd4;
+        box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+        color: #fff;
+    }
+
+    .form-control:hover {
+        background-color: #444;
+        border-color: #666;
+    }
+
+    .form-label {
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+        margin-bottom: 10px;
+    }
+
+
+
+    .btn-submit {
+        background-color: #007bff;
+        border: 1px solid #007bff;
+        color: #fff;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        padding: 12px 25px;
+        transition: all 0.3s ease;
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+        transform: translateY(-2px);
+    }
+
+    .table {
+        background-color: #333;
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+    }
+
+    .table th,
+    .table td {
+        text-align: left;
+        padding: 15px;
+        color: #fff;
+    }
+
+    .table th {
+        background-color: #444;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .table td {
+        background-color: #555;
+    }
+
+    /* Add a shadow to the table */
+    .table-bordered {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Adjust focus styles for input fields */
+    .table input[type="text"],
+    .table input[type="number"],
+    .table input[type="file"] {
+        transition: all 0.3s ease;
+    }
+
+    .table input[type="text"]:focus,
+    .table input[type="number"]:focus,
+    .table input[type="file"]:focus {
+        background-color: #555;
+        border-color: #00bcd4;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #808080, #606060);
+        /* Gray gradient */
+        border: 1px solid #505050;
+        /* Darker gray border */
+        color: #fff;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        padding: 15px 30px;
+        width: 250px;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(135deg, #505050, #707070);
+        /* Lighter gray gradient on hover */
+        border-color: #404040;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Center the button */
+    .text-center {
+        text-align: center;
+    }
+
+    /* Add padding between form elements */
+    .table td {
+        padding-bottom: 15px;
+    }
+
+    .input {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+
+    <header>
+        <div class="premium-nav">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <span class="logo-text">Premium</span>
+                    <div class="logo-shine"></div>
+                </a>
+
+                <div class="nav-links">
+                    <a href="/dash" class="nav-link active">
+                        <i class="ri-home-5-line"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/addproductpage" class="nav-link">
+                        <i class="ri-information-line"></i>
+                        <span>Add Product</span>
+                    </a>
+                    <a href="/product" class="nav-link">
+                        <i class="ri-stack-line"></i>
+                        <span>View Product</span>
+                    </a>
+                    <a href="/addtocartpage" class="nav-link">
+                        <i class="ri-stack-line"></i>
+                        <span>View Cart</span>
+                    </a>
+                    <a href="/logoutuser" class="nav-link">
+                        <i class="ri-mail-line"></i>
+                        <span>Log Out</span>
+                    </a>
+                </div>
+            </div>
+
+    </header>
+
+    <div class="container-fluid pt-4 px-4 pb-5 mt-5">
+        <div class="row g-4 pb-5">
+            <div class="col-sm-12 col-xl-6 mx-auto mt-5">
+                <div class="bg-dark rounded h-100 p-4">
+                    <h4 align="center" style="font-weight: 500; letter-spacing: 0.19rem;" class="mb-4">Edit Product</h4>
+                    <form method="post" action="/insertproduct" enctype="multipart/form-data"
+                        onsubmit="return validateForm()">
+                        <table class="table table-bordered">
+                            <input type="hidden" value="<%= single?._id %>" name="editid">
+                            <tr>
+                                <th class="form-label" for="product">Product</th>
+                                <td><input type="text" class="form-control" id="product" name="name"
+                                        placeholder="Enter product Name...!" value="<%= single?.product %>"></td>
+                            </tr>
+                            <tr>
+                                <th class="form-label" for="price">Price</th>
+                                <td><input type="number" id="price" class="form-control" name="price"
+                                        placeholder="Enter product price...!" value="<%= single?.price %>"></td>
+                            </tr>
+                            <tr>
+                                <th class="form-label" for="qty">Qty</th>
+                                <td><input type="number" id="qty" class="form-control" name="qty"
+                                        placeholder="Enter product Quantity...!" value="<%= single?.qty %>"></td>
+                            </tr>
+                            <tr>
+                                <th class="form-label" for="description">Description</th>
+                                <td><input type="text" id="description" class="form-control" name="description"
+                                        placeholder="Enter product Description...!" value="<%= single?.discription %>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="form-label" for="image">Image</th>
+                                <td style="display: flex;">
+                                    <input type="file" class="form-control" name="image">
+                                    <img src="<%= single?.image %>" alt="<%= single?.image %>" style="border-radius: 8px;margin-left: 10px;object-fit: cover;" width="150px" height="150px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <button type="submit" class="btn-submit">Submit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function validateForm() {
+
+        var product = document.getElementById('product').value;
+        var price = document.getElementById('price').value;
+        var qty = document.getElementById('qty').value;
+        var description = document.getElementById('description').value;
+
+        if (product.trim() === "") {
+            alert("Please enter product name.");
+        }
+
+        if (price.trim() === "") {
+            alert("Please enter price.");
+        }
+
+        if (qty.trim() === "") {
+            alert("Please enter quantity.");
+            return false;
+        }
+        if (qty.trim() === "") {
+            alert("Please enter description.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</html>

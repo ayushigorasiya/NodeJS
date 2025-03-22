@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --text-color: #0f172a;
+        --bg-color: #ffffff;
+        --nav-bg: rgba(255, 255, 255, 0.8);
+        --nav-border: rgba(231, 231, 231, 0.8);
+        --nav-height: 70px;
+        --nav-shadow: 0 5px 20px -5px rgba(99, 102, 241, 0.1);
+        --button-bg: rgba(99, 102, 241, 0.1);
+        --button-hover: rgba(99, 102, 241, 0.15);
+    }
+
+
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .premium-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: rgba(231, 231, 231, 0.8) !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+        border-bottom: 1px solid var(--nav-border);
+        height: var(--nav-height);
+        box-shadow: var(--nav-shadow);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 2rem;
+        gap: 2rem;
+    }
+
+    span {
+        color: #1e293b;
+    }
+
+    .nav-logo {
+        position: relative;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        overflow: visible;
+        transition: all 0.3s ease;
+    }
+
+    .logo-text {
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #d946ef 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradientFlow 8s ease infinite;
+    }
+
+    .nav-logo:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-logo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg,
+                var(--primary-color) 0%,
+                #d946ef 50%,
+                var(--primary-color) 100%);
+        border-radius: 12px;
+        z-index: -2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-logo::after {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        background: var(--nav-bg);
+        border-radius: 11px;
+        z-index: -1;
+    }
+
+    .nav-logo:hover::before {
+        opacity: 0.15;
+    }
+
+    .logo-shine {
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        right: -100%;
+        bottom: -100%;
+        background: linear-gradient(45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                transparent 100%);
+        transform: translateX(-100%) rotate(45deg);
+        animation: none;
+        pointer-events: none;
+    }
+
+    .nav-logo:hover .logo-shine {
+        animation: shineLogo 1s ease forwards;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        background: var(--button-bg);
+        color: var(--primary-color);
+    }
+
+    .nav-link.active {
+        background: var(--button-bg);
+        color: var(--primary-color);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    h4 {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    th,
+    td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: 0.3s;
+    }
+
+    .product-image img {
+        width: 80px;
+        border-radius: 8px;
+    }
+
+    .action-btn {
+        background: #ff4d79;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        border: none;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .action-btn:hover {
+        background: #ff3366;
+    }
+
+    :root {
+        --primary-color: #6b7280;
+        /* A neutral gray */
+        --text-color: #e5e7eb;
+        /* Light gray text */
+        --bg-color: #2d3748;
+        /* Darker gray background */
+        --nav-bg: rgba(45, 55, 72, 0.9);
+        /* A darker grayish nav background */
+        --nav-border: rgba(55, 65, 81, 0.8);
+        /* Slightly lighter gray border */
+        --nav-shadow: 0 5px 20px -5px rgba(107, 114, 128, 0.1);
+        /* Subtle shadow with gray tone */
+        --button-bg: rgba(107, 114, 128, 0.2);
+        /* Light grayish button background */
+        --button-hover: rgba(107, 114, 128, 0.3);
+        /* Slightly darker gray hover */
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+        background: #334155;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+        margin-top: 150px;
+    }
+
+    h4 {
+        color: var(--text-color);
+    }
+
+    table {
+        background-color: #1e293b;
+        color: var(--text-color);
+    }
+
+    thead {
+        background-color: var(--primary-color);
+    }
+
+    tbody tr:hover {
+        background-color: #374151;
+    }
+
+    .action-btn {
+        background: var(--button-bg);
+        color: var(--text-color);
+    }
+
+    .action-btn:hover {
+        background: var(--button-hover);
+    }
+</style>
+
+<body>
+
+
+    <header>
+        <div class="premium-nav">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <span class="logo-text">Premium</span>
+                    <div class="logo-shine"></div>
+                </a>
+
+                <div class="nav-links">
+                    <a href="/dash" class="nav-link active">
+                        <i class="ri-home-5-line"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/addproductpage" class="nav-link">
+                        <i class="ri-information-line"></i>
+                        <span>Add Product</span>
+                    </a>
+                    <a href="/product" class="nav-link">
+                        <i class="ri-stack-line"></i>
+                        <span>View Product</span>
+                    </a>
+                    <a href="/addtocartpage" class="nav-link">
+                        <i class="ri-stack-line"></i>
+                        <span>View Cart</span>
+                    </a>
+                    <a href="/logoutuser" class="nav-link">
+                        <i class="ri-mail-line"></i>
+                        <span>Log Out</span>
+                    </a>
+                </div>
+            </div>
+
+    </header>
+
+    <div class="container">
+        <h4>Ex_Subcategory Table</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">Srno</th>
+                    <th width="10%">Image</th>
+                    <th width="20%">Product</th>
+                    <th width="10%">Price</th>
+                    <th width="10%">Quantity</th>
+                    <th width="25%">Description</th>
+                    <th width="20%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% product.map((val, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= ++index %>
+                        </td>
+                        <td class="product-image">
+                            <img src="/<%= val.image %>" alt="Product Image">
+                        </td>
+                        <td>
+                            <%= val?.product %>
+                        </td>
+                        <td>&euro; <%= val?.price %>
+                        </td>
+                        <td>
+                            <%= val?.qty %>
+                        </td>
+                        <td>
+                            <%= val?.discription %>
+                        </td>
+                        <td>
+                            <a href="/editproduct?id=<%= val?._id %>" class="action-btn" style="width: 90%;">Edit</a>
+                            <form action="/addtocart" method="post" style="margin: 13px 0;">
+                                <input type="hidden" value="<%= val?._id %>" name="productid">
+                                <button type="submit" class="action-btn">Add To Cart</button>
+                            </form>
+                            <a href="/deleteproduct?id=<%= val._id %>" class="action-btn" style="width: 90%;">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
