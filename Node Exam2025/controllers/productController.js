@@ -19,25 +19,27 @@ const viewProductPage = async (req, res) => {
 }
 const InsertProduct = async (req, res) => {
     try {
-        const { editid, name, price, discription, qty } = req.body;
+        const { editid, name, price, description, qty } = req.body;
+    
+    
+        
         if (editid) {
             let product = await ProductModel.findById(editid);
-            if (!req.file) {
+            if (req.file) {
                 await ProductModel.findByIdAndUpdate(editid, {
                     product: name,
                     price: price,
                     qty: qty,
-                    discription: discription,
-                    image: product?.image
+                    discription: description,
+                    image: req.file.path
                 })
             } else {
-                fs.unlinkSync(product?.image);
                 await ProductModel.findByIdAndUpdate(editid, {
                     product: name,
                     price: price,
                     qty: qty,
-                    discription: discription,
-                    image: req.file.path
+                    discription: description,
+                    image: product.image
                 })
             }
             return res.redirect('/product');
