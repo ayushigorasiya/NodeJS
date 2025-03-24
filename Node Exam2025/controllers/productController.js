@@ -49,7 +49,7 @@ const InsertProduct = async (req, res) => {
                 product: name,
                 price: price,
                 qty: qty,
-                discription: discription,
+                discription: description,
                 image: req.file?.path
             })
             return res.redirect('/product')
