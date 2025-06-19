@@ -6,7 +6,7 @@ app.set('view engine' , 'ejs');
 
 const path =require('path');
 app.use('/uploads',express.static(path.join(__dirname,'uploads')))
-const db = require('./config/db');
+const mongoose = require('./config/db');
 
 const cookieparser = require('cookie-parser');
 

@@ -1,13 +1,8 @@
-const mongoose = require ('mongoose');
+// db.js
+const mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://localhost/adminpanel`);
-const db= mongoose.connection;
-db.on("connected" , (err) => {
-    if(err){
-        console.log(err);
-        return false;
-    }
-    console.log(`Database are Successfully Connected`);
-    
-})
-module.exports = db;
+mongoose.connect('mongodb://127.0.0.1:27017/adminpanel')
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
+
+module.exports = mongoose;
